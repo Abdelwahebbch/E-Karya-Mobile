@@ -444,9 +444,9 @@ class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
               children: [
                 Row(
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 16,
-                      child: const Icon(Icons.person),
+                      child: Icon(Icons.person),
                     ),
                     const SizedBox(width: 8),
                     Expanded(

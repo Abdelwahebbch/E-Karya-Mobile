@@ -53,6 +53,7 @@ class AppwriteService extends ChangeNotifier {
         password: password,
         name: name,
       );
+      debugPrint("Account Created !! ");
       await login(email: email, password: password);
     } catch (e) {
       _isLoading = false;

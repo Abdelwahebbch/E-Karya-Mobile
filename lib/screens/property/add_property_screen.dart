@@ -63,40 +63,43 @@ class _AddPropertyScreenState extends State<AddPropertyScreen> {
 
   void _handleAddProperty() async {
     final propertyProvider = Provider.of<PropertyProvider>(context);
-    final success = await propertyProvider.createProperty(
-      title: _titleController.text.trim(),
-      description: _descriptionController.text.trim(),
-      propertyType: _selectedPropertyType,
-      address: _addressController.text.trim(),
-      city: _cityController.text.trim(),
-      state: _stateController.text.trim(),
-      zipCode: _zipCodeController.text.trim(),
-      latitude: _latitude,
-      longitude: _longitude,
-      price: double.parse(_priceController.text),
-      rentalType: _selectedRentalType,
-      bedrooms: int.parse(_bedroomsController.text),
-      bathrooms: int.parse(_bathroomsController.text),
-      squareFeet: double.parse(_squareFeetController.text),
-      amenities: _selectedAmenities,
-      imageUrls: [], // TODO: Implement image upload
-    );
-
-    if (success && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Property added successfully!'),
-          backgroundColor: AppColors.success,
-        ),
+    try {
+      await propertyProvider.createProperty(
+        title: _titleController.text.trim(),
+        description: _descriptionController.text.trim(),
+        propertyType: _selectedPropertyType,
+        address: _addressController.text.trim(),
+        city: _cityController.text.trim(),
+        state: _stateController.text.trim(),
+        zipCode: _zipCodeController.text.trim(),
+        latitude: _latitude,
+        longitude: _longitude,
+        price: double.parse(_priceController.text),
+        rentalType: _selectedRentalType,
+        bedrooms: int.parse(_bedroomsController.text),
+        bathrooms: int.parse(_bathroomsController.text),
+        squareFeet: double.parse(_squareFeetController.text),
+        amenities: _selectedAmenities,
+        imageUrls: [], // TODO: Implement image upload
       );
-      _clearForm();
-    } else if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(propertyProvider.error ?? 'Failed to add property'),
-          backgroundColor: AppColors.error,
-        ),
-      );
+      if ( mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Property added successfully!'),
+            backgroundColor: AppColors.success,
+          ),
+        );
+        _clearForm();
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(propertyProvider.error ?? 'Failed to add property'),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
     }
   }
 

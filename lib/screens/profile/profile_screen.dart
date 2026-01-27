@@ -294,7 +294,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         );
 
-        if (confirmed == true && context.mounted) {
+        if (confirmed == true && mounted) {
           await authProvider.logout();
           if (context.mounted) {
             Navigator.of(context).pushReplacementNamed('/login');

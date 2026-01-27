@@ -57,12 +57,12 @@ class _SignupScreenState extends State<SignupScreen> {
       return;
     }
 
-    final authProvider = Provider.of<AppwriteService>(context);
+    final authProvider = Provider.of<AppwriteService>(context, listen: false);
     try {
       await authProvider.signup(
         _emailController.text.trim(),
         _passwordController.text,
-        _firstNameController.text.trim(),
+        '${_firstNameController.text.trim()} ${_lastNameController.text.trim()}',
       );
       if (mounted) {
         Navigator.of(context).pushReplacementNamed('/home');
