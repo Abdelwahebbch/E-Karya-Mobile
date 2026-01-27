@@ -1,9 +1,6 @@
 import '../../models/review_model.dart';
-import 'api_service.dart';
 
 class ReviewService {
-  final ApiService _apiService = ApiService();
-
   static final ReviewService _instance = ReviewService._internal();
 
   factory ReviewService() {
@@ -23,21 +20,18 @@ class ReviewService {
     required String reviewType,
   }) async {
     try {
-      final response = await _apiService.post(
-        '/reviews',
-        data: {
-          'propertyId': propertyId,
-          'revieweeId': revieweeId,
-          'rating': rating,
-          'title': title,
-          'comment': comment,
-          'imageUrls': imageUrls,
-          'reviewType': reviewType,
-        },
-        fromJson: (json) => json,
-      );
-
-      return Review.fromJson(response);
+      return Review(
+          id: "id",
+          propertyId: propertyId,
+          reviewerId: "reviewerId",
+          revieweeId: revieweeId,
+          rating: rating,
+          title: title,
+          comment: comment,
+          imageUrls: imageUrls,
+          reviewType: reviewType,
+          createdAt: DateTime(2026),
+          updatedAt: DateTime(2026));
     } catch (e) {
       rethrow;
     }
@@ -46,12 +40,18 @@ class ReviewService {
   // Get review by ID
   Future<Review> getReviewById(String reviewId) async {
     try {
-      final response = await _apiService.get(
-        '/reviews/$reviewId',
-        fromJson: (json) => json,
-      );
-
-      return Review.fromJson(response);
+      return Review(
+          id: "id",
+          propertyId: "propertyId",
+          reviewerId: "reviewerId",
+          revieweeId: "revieweeId",
+          rating: 0.1,
+          title: "title",
+          comment: "comment",
+          imageUrls: const ["imageUrls"],
+          reviewType: "reviewType",
+          createdAt: DateTime(2026),
+          updatedAt: DateTime(2026));
     } catch (e) {
       rethrow;
     }
@@ -64,19 +64,20 @@ class ReviewService {
     int limit = 10,
   }) async {
     try {
-      final response = await _apiService.get(
-        '/reviews/property/$propertyId',
-        queryParameters: {
-          'page': page,
-          'limit': limit,
-        },
-        fromJson: (json) => json,
-      );
-
-      final reviews = (response['reviews'] as List)
-          .map((r) => Review.fromJson(r as Map<String, dynamic>))
-          .toList();
-
+      List<Review> reviews = [
+        Review(
+            id: "id",
+            propertyId: "propertyId",
+            reviewerId: "reviewerId",
+            revieweeId: "revieweeId",
+            rating: 0.1,
+            title: "title",
+            comment: "comment",
+            imageUrls: const ["imageUrls"],
+            reviewType: "reviewType",
+            createdAt: DateTime(2026),
+            updatedAt: DateTime(2026))
+      ];
       return reviews;
     } catch (e) {
       rethrow;
@@ -90,19 +91,20 @@ class ReviewService {
     int limit = 10,
   }) async {
     try {
-      final response = await _apiService.get(
-        '/reviews/landlord/$landlordId',
-        queryParameters: {
-          'page': page,
-          'limit': limit,
-        },
-        fromJson: (json) => json,
-      );
-
-      final reviews = (response['reviews'] as List)
-          .map((r) => Review.fromJson(r as Map<String, dynamic>))
-          .toList();
-
+      List<Review> reviews = [
+        Review(
+            id: "id",
+            propertyId: "propertyId",
+            reviewerId: "reviewerId",
+            revieweeId: "revieweeId",
+            rating: 0.1,
+            title: "title",
+            comment: "comment",
+            imageUrls: const ["imageUrls"],
+            reviewType: "reviewType",
+            createdAt: DateTime(2026),
+            updatedAt: DateTime(2026))
+      ];
       return reviews;
     } catch (e) {
       rethrow;
@@ -116,19 +118,20 @@ class ReviewService {
     int limit = 10,
   }) async {
     try {
-      final response = await _apiService.get(
-        '/reviews/user/$userId',
-        queryParameters: {
-          'page': page,
-          'limit': limit,
-        },
-        fromJson: (json) => json,
-      );
-
-      final reviews = (response['reviews'] as List)
-          .map((r) => Review.fromJson(r as Map<String, dynamic>))
-          .toList();
-
+      List<Review> reviews = [
+        Review(
+            id: "id",
+            propertyId: "propertyId",
+            reviewerId: "reviewerId",
+            revieweeId: "revieweeId",
+            rating: 0.1,
+            title: "title",
+            comment: "comment",
+            imageUrls: const ["imageUrls"],
+            reviewType: "reviewType",
+            createdAt: DateTime(2026),
+            updatedAt: DateTime(2026))
+      ];
       return reviews;
     } catch (e) {
       rethrow;
@@ -144,19 +147,18 @@ class ReviewService {
     List<String>? imageUrls,
   }) async {
     try {
-      final data = <String, dynamic>{};
-      if (rating != null) data['rating'] = rating;
-      if (title != null) data['title'] = title;
-      if (comment != null) data['comment'] = comment;
-      if (imageUrls != null) data['imageUrls'] = imageUrls;
-
-      final response = await _apiService.put(
-        '/reviews/$reviewId',
-        data: data,
-        fromJson: (json) => json,
-      );
-
-      return Review.fromJson(response);
+      return Review(
+          id: "id",
+          propertyId: "propertyId",
+          reviewerId: "reviewerId",
+          revieweeId: "revieweeId",
+          rating: 0.1,
+          title: "title",
+          comment: "comment",
+          imageUrls: const ["imageUrls"],
+          reviewType: "reviewType",
+          createdAt: DateTime(2026),
+          updatedAt: DateTime(2026));
     } catch (e) {
       rethrow;
     }
@@ -164,12 +166,7 @@ class ReviewService {
 
   // Delete review
   Future<void> deleteReview(String reviewId) async {
-    try {
-      await _apiService.delete(
-        '/reviews/$reviewId',
-        fromJson: (json) => json,
-      );
-    } catch (e) {
+    try {} catch (e) {
       rethrow;
     }
   }
@@ -177,12 +174,7 @@ class ReviewService {
   // Get average rating for property
   Future<double> getPropertyAverageRating(String propertyId) async {
     try {
-      final response = await _apiService.get(
-        '/reviews/property/$propertyId/rating',
-        fromJson: (json) => json,
-      );
-
-      return (response['averageRating'] as num).toDouble();
+      return 0.9;
     } catch (e) {
       rethrow;
     }
@@ -191,12 +183,7 @@ class ReviewService {
   // Get average rating for landlord
   Future<double> getLandlordAverageRating(String landlordId) async {
     try {
-      final response = await _apiService.get(
-        '/reviews/landlord/$landlordId/rating',
-        fromJson: (json) => json,
-      );
-
-      return (response['averageRating'] as num).toDouble();
+      return 0.9;
     } catch (e) {
       rethrow;
     }

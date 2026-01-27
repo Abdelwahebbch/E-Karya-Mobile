@@ -1,9 +1,6 @@
 import '../../models/booking_model.dart';
-import 'api_service.dart';
 
 class BookingService {
-  final ApiService _apiService = ApiService();
-
   static final BookingService _instance = BookingService._internal();
 
   factory BookingService() {
@@ -24,22 +21,21 @@ class BookingService {
     String? notes,
   }) async {
     try {
-      final response = await _apiService.post(
-        '/bookings',
-        data: {
-          'propertyId': propertyId,
-          'checkInDate': checkInDate.toIso8601String(),
-          'checkOutDate': checkOutDate.toIso8601String(),
-          'numberOfGuests': numberOfGuests,
-          'totalPrice': totalPrice,
-          'depositAmount': depositAmount,
-          'paymentMethod': paymentMethod,
-          'notes': notes,
-        },
-        fromJson: (json) => json,
-      );
-
-      return Booking.fromJson(response);
+      return Booking(
+          id: "1",
+          propertyId: "propertyId",
+          tenantId: "tenantId",
+          landlordId: "landlordId",
+          checkInDate: DateTime(2025),
+          checkOutDate: DateTime(2026),
+          numberOfGuests: 4,
+          totalPrice: 200,
+          depositAmount: 2023,
+          status: "status",
+          paymentStatus: "paymentStatus",
+          paymentMethod: "paymentMethod",
+          createdAt: DateTime(2026),
+          updatedAt: DateTime(2026));
     } catch (e) {
       rethrow;
     }
@@ -48,12 +44,21 @@ class BookingService {
   // Get booking by ID
   Future<Booking> getBookingById(String bookingId) async {
     try {
-      final response = await _apiService.get(
-        '/bookings/$bookingId',
-        fromJson: (json) => json,
-      );
-
-      return Booking.fromJson(response);
+      return Booking(
+          id: "1",
+          propertyId: "propertyId",
+          tenantId: "tenantId",
+          landlordId: "landlordId",
+          checkInDate: DateTime(2025),
+          checkOutDate: DateTime(2026),
+          numberOfGuests: 4,
+          totalPrice: 200,
+          depositAmount: 2023,
+          status: "status",
+          paymentStatus: "paymentStatus",
+          paymentMethod: "paymentMethod",
+          createdAt: DateTime(2026),
+          updatedAt: DateTime(2026));
     } catch (e) {
       rethrow;
     }
@@ -67,22 +72,39 @@ class BookingService {
     String? status,
   }) async {
     try {
-      final queryParams = {
-        'page': page,
-        'limit': limit,
-        if (status != null) 'status': status,
-      };
-
-      final response = await _apiService.get(
-        '/bookings/tenant/$tenantId',
-        queryParameters: queryParams,
-        fromJson: (json) => json,
-      );
-
-      final bookings = (response['bookings'] as List)
-          .map((b) => Booking.fromJson(b as Map<String, dynamic>))
-          .toList();
-
+      
+      List<Booking> bookings = [
+        Booking(
+            id: "1",
+            propertyId: "propertyId",
+            tenantId: "tenantId",
+            landlordId: "landlordId",
+            checkInDate: DateTime(2025),
+            checkOutDate: DateTime(2026),
+            numberOfGuests: 4,
+            totalPrice: 200,
+            depositAmount: 2023,
+            status: "status",
+            paymentStatus: "paymentStatus",
+            paymentMethod: "paymentMethod",
+            createdAt: DateTime(2026),
+            updatedAt: DateTime(2026)),
+        Booking(
+            id: "1",
+            propertyId: "propertyId",
+            tenantId: "tenantId",
+            landlordId: "landlordId",
+            checkInDate: DateTime(2025),
+            checkOutDate: DateTime(2026),
+            numberOfGuests: 4,
+            totalPrice: 200,
+            depositAmount: 2023,
+            status: "status",
+            paymentStatus: "paymentStatus",
+            paymentMethod: "paymentMethod",
+            createdAt: DateTime(2026),
+            updatedAt: DateTime(2026))
+      ];
       return bookings;
     } catch (e) {
       rethrow;
@@ -97,21 +119,38 @@ class BookingService {
     String? status,
   }) async {
     try {
-      final queryParams = {
-        'page': page,
-        'limit': limit,
-        if (status != null) 'status': status,
-      };
-
-      final response = await _apiService.get(
-        '/bookings/landlord/$landlordId',
-        queryParameters: queryParams,
-        fromJson: (json) => json,
-      );
-
-      final bookings = (response['bookings'] as List)
-          .map((b) => Booking.fromJson(b as Map<String, dynamic>))
-          .toList();
+      List<Booking> bookings = [
+        Booking(
+            id: "1",
+            propertyId: "propertyId",
+            tenantId: "tenantId",
+            landlordId: "landlordId",
+            checkInDate: DateTime(2025),
+            checkOutDate: DateTime(2026),
+            numberOfGuests: 4,
+            totalPrice: 200,
+            depositAmount: 2023,
+            status: "status",
+            paymentStatus: "paymentStatus",
+            paymentMethod: "paymentMethod",
+            createdAt: DateTime(2026),
+            updatedAt: DateTime(2026)),
+        Booking(
+            id: "1",
+            propertyId: "propertyId",
+            tenantId: "tenantId",
+            landlordId: "landlordId",
+            checkInDate: DateTime(2025),
+            checkOutDate: DateTime(2026),
+            numberOfGuests: 4,
+            totalPrice: 200,
+            depositAmount: 2023,
+            status: "status",
+            paymentStatus: "paymentStatus",
+            paymentMethod: "paymentMethod",
+            createdAt: DateTime(2026),
+            updatedAt: DateTime(2026))
+      ];
 
       return bookings;
     } catch (e) {
@@ -125,13 +164,21 @@ class BookingService {
     required String status,
   }) async {
     try {
-      final response = await _apiService.patch(
-        '/bookings/$bookingId/status',
-        data: {'status': status},
-        fromJson: (json) => json,
-      );
-
-      return Booking.fromJson(response);
+      return Booking(
+          id: "1",
+          propertyId: "propertyId",
+          tenantId: "tenantId",
+          landlordId: "landlordId",
+          checkInDate: DateTime(2025),
+          checkOutDate: DateTime(2026),
+          numberOfGuests: 4,
+          totalPrice: 200,
+          depositAmount: 2023,
+          status: "status",
+          paymentStatus: "paymentStatus",
+          paymentMethod: "paymentMethod",
+          createdAt: DateTime(2026),
+          updatedAt: DateTime(2026));
     } catch (e) {
       rethrow;
     }
@@ -143,13 +190,21 @@ class BookingService {
     String? reason,
   }) async {
     try {
-      final response = await _apiService.patch(
-        '/bookings/$bookingId/cancel',
-        data: {'reason': reason},
-        fromJson: (json) => json,
-      );
-
-      return Booking.fromJson(response);
+      return Booking(
+          id: "1",
+          propertyId: "propertyId",
+          tenantId: "tenantId",
+          landlordId: "landlordId",
+          checkInDate: DateTime(2025),
+          checkOutDate: DateTime(2026),
+          numberOfGuests: 4,
+          totalPrice: 200,
+          depositAmount: 2023,
+          status: "status",
+          paymentStatus: "paymentStatus",
+          paymentMethod: "paymentMethod",
+          createdAt: DateTime(2026),
+          updatedAt: DateTime(2026));
     } catch (e) {
       rethrow;
     }
@@ -162,17 +217,7 @@ class BookingService {
     required DateTime checkOutDate,
   }) async {
     try {
-      final response = await _apiService.get(
-        '/bookings/check-availability',
-        queryParameters: {
-          'propertyId': propertyId,
-          'checkInDate': checkInDate.toIso8601String(),
-          'checkOutDate': checkOutDate.toIso8601String(),
-        },
-        fromJson: (json) => json,
-      );
-
-      return response['isAvailable'] as bool;
+      return true;
     } catch (e) {
       rethrow;
     }
@@ -185,16 +230,7 @@ class BookingService {
     required double amount,
   }) async {
     try {
-      final response = await _apiService.post(
-        '/bookings/$bookingId/payment',
-        data: {
-          'paymentMethodId': paymentMethodId,
-          'amount': amount,
-        },
-        fromJson: (json) => json,
-      );
-
-      return response as Map<String, dynamic>;
+      return {"Test": "Paiment"};
     } catch (e) {
       rethrow;
     }
@@ -207,19 +243,38 @@ class BookingService {
     int limit = 10,
   }) async {
     try {
-      final response = await _apiService.get(
-        '/bookings/history/$userId',
-        queryParameters: {
-          'page': page,
-          'limit': limit,
-        },
-        fromJson: (json) => json,
-      );
-
-      final bookings = (response['bookings'] as List)
-          .map((b) => Booking.fromJson(b as Map<String, dynamic>))
-          .toList();
-
+      List<Booking> bookings = [
+        Booking(
+            id: "1",
+            propertyId: "propertyId",
+            tenantId: "tenantId",
+            landlordId: "landlordId",
+            checkInDate: DateTime(2025),
+            checkOutDate: DateTime(2026),
+            numberOfGuests: 4,
+            totalPrice: 200,
+            depositAmount: 2023,
+            status: "status",
+            paymentStatus: "paymentStatus",
+            paymentMethod: "paymentMethod",
+            createdAt: DateTime(2026),
+            updatedAt: DateTime(2026)),
+        Booking(
+            id: "1",
+            propertyId: "propertyId",
+            tenantId: "tenantId",
+            landlordId: "landlordId",
+            checkInDate: DateTime(2025),
+            checkOutDate: DateTime(2026),
+            numberOfGuests: 4,
+            totalPrice: 200,
+            depositAmount: 2023,
+            status: "status",
+            paymentStatus: "paymentStatus",
+            paymentMethod: "paymentMethod",
+            createdAt: DateTime(2026),
+            updatedAt: DateTime(2026))
+      ];
       return bookings;
     } catch (e) {
       rethrow;
