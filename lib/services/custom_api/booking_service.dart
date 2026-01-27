@@ -3,11 +3,39 @@ import '../../models/booking_model.dart';
 class BookingService {
   static final BookingService _instance = BookingService._internal();
 
-  factory BookingService() {
-    return _instance;
-  }
+  factory BookingService() => _instance;
 
   BookingService._internal();
+
+  // Mock generator
+  Booking _mockBooking({
+    String id = '1',
+    String propertyId = 'property_1',
+    String tenantId = 'tenant_1',
+    String landlordId = 'landlord_1',
+    String status = 'confirmed',
+    String paymentStatus = 'paid',
+    String paymentMethod = 'card',
+    DateTime? checkInDate,
+    DateTime? checkOutDate,
+  }) {
+    return Booking(
+      id: id,
+      propertyId: propertyId,
+      tenantId: tenantId,
+      landlordId: landlordId,
+      checkInDate: checkInDate ?? DateTime(2025, 6, 10),
+      checkOutDate: checkOutDate ?? DateTime(2025, 6, 15),
+      numberOfGuests: 2,
+      totalPrice: 500.0,
+      depositAmount: 150.0,
+      status: status,
+      paymentStatus: paymentStatus,
+      paymentMethod: paymentMethod,
+      createdAt: DateTime.now().subtract(const Duration(days: 2)),
+      updatedAt: DateTime.now(),
+    );
+  }
 
   // Create booking
   Future<Booking> createBooking({
@@ -20,48 +48,20 @@ class BookingService {
     required String paymentMethod,
     String? notes,
   }) async {
-    try {
-      return Booking(
-          id: "1",
-          propertyId: "propertyId",
-          tenantId: "tenantId",
-          landlordId: "landlordId",
-          checkInDate: DateTime(2025),
-          checkOutDate: DateTime(2026),
-          numberOfGuests: 4,
-          totalPrice: 200,
-          depositAmount: 2023,
-          status: "status",
-          paymentStatus: "paymentStatus",
-          paymentMethod: "paymentMethod",
-          createdAt: DateTime(2026),
-          updatedAt: DateTime(2026));
-    } catch (e) {
-      rethrow;
-    }
+    return _mockBooking(
+      id: 'booking_101',
+      propertyId: propertyId,
+      checkInDate: checkInDate,
+      checkOutDate: checkOutDate,
+      paymentMethod: paymentMethod,
+      status: 'pending',
+      paymentStatus: 'unpaid',
+    );
   }
 
   // Get booking by ID
   Future<Booking> getBookingById(String bookingId) async {
-    try {
-      return Booking(
-          id: "1",
-          propertyId: "propertyId",
-          tenantId: "tenantId",
-          landlordId: "landlordId",
-          checkInDate: DateTime(2025),
-          checkOutDate: DateTime(2026),
-          numberOfGuests: 4,
-          totalPrice: 200,
-          depositAmount: 2023,
-          status: "status",
-          paymentStatus: "paymentStatus",
-          paymentMethod: "paymentMethod",
-          createdAt: DateTime(2026),
-          updatedAt: DateTime(2026));
-    } catch (e) {
-      rethrow;
-    }
+    return _mockBooking(id: bookingId);
   }
 
   // Get tenant bookings
@@ -71,44 +71,14 @@ class BookingService {
     int limit = 10,
     String? status,
   }) async {
-    try {
-      
-      List<Booking> bookings = [
-        Booking(
-            id: "1",
-            propertyId: "propertyId",
-            tenantId: "tenantId",
-            landlordId: "landlordId",
-            checkInDate: DateTime(2025),
-            checkOutDate: DateTime(2026),
-            numberOfGuests: 4,
-            totalPrice: 200,
-            depositAmount: 2023,
-            status: "status",
-            paymentStatus: "paymentStatus",
-            paymentMethod: "paymentMethod",
-            createdAt: DateTime(2026),
-            updatedAt: DateTime(2026)),
-        Booking(
-            id: "1",
-            propertyId: "propertyId",
-            tenantId: "tenantId",
-            landlordId: "landlordId",
-            checkInDate: DateTime(2025),
-            checkOutDate: DateTime(2026),
-            numberOfGuests: 4,
-            totalPrice: 200,
-            depositAmount: 2023,
-            status: "status",
-            paymentStatus: "paymentStatus",
-            paymentMethod: "paymentMethod",
-            createdAt: DateTime(2026),
-            updatedAt: DateTime(2026))
-      ];
-      return bookings;
-    } catch (e) {
-      rethrow;
-    }
+    return List.generate(
+      3,
+      (index) => _mockBooking(
+        id: 'tenant_booking_$index',
+        tenantId: tenantId,
+        status: status ?? 'confirmed',
+      ),
+    );
   }
 
   // Get landlord bookings
@@ -118,44 +88,14 @@ class BookingService {
     int limit = 10,
     String? status,
   }) async {
-    try {
-      List<Booking> bookings = [
-        Booking(
-            id: "1",
-            propertyId: "propertyId",
-            tenantId: "tenantId",
-            landlordId: "landlordId",
-            checkInDate: DateTime(2025),
-            checkOutDate: DateTime(2026),
-            numberOfGuests: 4,
-            totalPrice: 200,
-            depositAmount: 2023,
-            status: "status",
-            paymentStatus: "paymentStatus",
-            paymentMethod: "paymentMethod",
-            createdAt: DateTime(2026),
-            updatedAt: DateTime(2026)),
-        Booking(
-            id: "1",
-            propertyId: "propertyId",
-            tenantId: "tenantId",
-            landlordId: "landlordId",
-            checkInDate: DateTime(2025),
-            checkOutDate: DateTime(2026),
-            numberOfGuests: 4,
-            totalPrice: 200,
-            depositAmount: 2023,
-            status: "status",
-            paymentStatus: "paymentStatus",
-            paymentMethod: "paymentMethod",
-            createdAt: DateTime(2026),
-            updatedAt: DateTime(2026))
-      ];
-
-      return bookings;
-    } catch (e) {
-      rethrow;
-    }
+    return List.generate(
+      3,
+      (index) => _mockBooking(
+        id: 'landlord_booking_$index',
+        landlordId: landlordId,
+        status: status ?? 'confirmed',
+      ),
+    );
   }
 
   // Update booking status
@@ -163,25 +103,10 @@ class BookingService {
     required String bookingId,
     required String status,
   }) async {
-    try {
-      return Booking(
-          id: "1",
-          propertyId: "propertyId",
-          tenantId: "tenantId",
-          landlordId: "landlordId",
-          checkInDate: DateTime(2025),
-          checkOutDate: DateTime(2026),
-          numberOfGuests: 4,
-          totalPrice: 200,
-          depositAmount: 2023,
-          status: "status",
-          paymentStatus: "paymentStatus",
-          paymentMethod: "paymentMethod",
-          createdAt: DateTime(2026),
-          updatedAt: DateTime(2026));
-    } catch (e) {
-      rethrow;
-    }
+    return _mockBooking(
+      id: bookingId,
+      status: status,
+    );
   }
 
   // Cancel booking
@@ -189,25 +114,11 @@ class BookingService {
     required String bookingId,
     String? reason,
   }) async {
-    try {
-      return Booking(
-          id: "1",
-          propertyId: "propertyId",
-          tenantId: "tenantId",
-          landlordId: "landlordId",
-          checkInDate: DateTime(2025),
-          checkOutDate: DateTime(2026),
-          numberOfGuests: 4,
-          totalPrice: 200,
-          depositAmount: 2023,
-          status: "status",
-          paymentStatus: "paymentStatus",
-          paymentMethod: "paymentMethod",
-          createdAt: DateTime(2026),
-          updatedAt: DateTime(2026));
-    } catch (e) {
-      rethrow;
-    }
+    return _mockBooking(
+      id: bookingId,
+      status: 'cancelled',
+      paymentStatus: 'refunded',
+    );
   }
 
   // Check property availability
@@ -216,11 +127,7 @@ class BookingService {
     required DateTime checkInDate,
     required DateTime checkOutDate,
   }) async {
-    try {
-      return true;
-    } catch (e) {
-      rethrow;
-    }
+    return true; // always available (mock)
   }
 
   // Process payment
@@ -229,11 +136,12 @@ class BookingService {
     required String paymentMethodId,
     required double amount,
   }) async {
-    try {
-      return {"Test": "Paiment"};
-    } catch (e) {
-      rethrow;
-    }
+    return {
+      'bookingId': bookingId,
+      'status': 'success',
+      'amount': amount,
+      'paymentMethodId': paymentMethodId,
+    };
   }
 
   // Get booking history
@@ -242,42 +150,13 @@ class BookingService {
     int page = 1,
     int limit = 10,
   }) async {
-    try {
-      List<Booking> bookings = [
-        Booking(
-            id: "1",
-            propertyId: "propertyId",
-            tenantId: "tenantId",
-            landlordId: "landlordId",
-            checkInDate: DateTime(2025),
-            checkOutDate: DateTime(2026),
-            numberOfGuests: 4,
-            totalPrice: 200,
-            depositAmount: 2023,
-            status: "status",
-            paymentStatus: "paymentStatus",
-            paymentMethod: "paymentMethod",
-            createdAt: DateTime(2026),
-            updatedAt: DateTime(2026)),
-        Booking(
-            id: "1",
-            propertyId: "propertyId",
-            tenantId: "tenantId",
-            landlordId: "landlordId",
-            checkInDate: DateTime(2025),
-            checkOutDate: DateTime(2026),
-            numberOfGuests: 4,
-            totalPrice: 200,
-            depositAmount: 2023,
-            status: "status",
-            paymentStatus: "paymentStatus",
-            paymentMethod: "paymentMethod",
-            createdAt: DateTime(2026),
-            updatedAt: DateTime(2026))
-      ];
-      return bookings;
-    } catch (e) {
-      rethrow;
-    }
+    return List.generate(
+      5,
+      (index) => _mockBooking(
+        id: 'history_$index',
+        tenantId: userId,
+        status: 'completed',
+      ),
+    );
   }
 }
