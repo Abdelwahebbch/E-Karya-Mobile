@@ -19,8 +19,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _navigateAfterDelay() async {
-    final authProvider = context.read<AppwriteService>();
-    await Future.delayed(const Duration(seconds: 3));
+    final authProvider = Provider.of<AppwriteService>(context ,listen: false);
+    await Future.delayed(const Duration(seconds: 1));
     await authProvider.checkSession();
     if (!mounted) return;
 

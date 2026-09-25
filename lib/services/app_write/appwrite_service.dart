@@ -80,6 +80,13 @@ class AppwriteService extends ChangeNotifier {
     }
   }
 
+  Future<void> createToken() async{
+    final sessionToken = await account.createEmailToken(
+    userId: ID.unique(),
+    email: 'email@example.com'
+);
+}
+
   Future<void> logout() async {
     try {
       await account.deleteSession(sessionId: 'current');
